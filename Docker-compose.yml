@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:80"
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_RUN_HOST=0.0.0.0
+    volumes:
+      - .:/app
+
+  push-to-docker-hub:
+    image: docker:latest
+    command: sh -c "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker tag <your-image-name> $DOCKER_USERNAME/<your-image-name>:latest && docker push $DOCKER_USERNAME/<your-image-name>:latest"
+    environment:
+      - DOCKER_USERNAME
+      - DOCKER_PASSWORD
+      - IMAGE_NAME=<your-image-name>
+    depends_on:
+      - web

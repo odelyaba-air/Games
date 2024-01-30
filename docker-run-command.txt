@@ -1,0 +1,1 @@
+docker run -d -p 8777:8777 -v C:/Users/ODELYA/Desktop/Games/Scores.txt:/app/Scores.txt --name world-of-games docker0-compost
